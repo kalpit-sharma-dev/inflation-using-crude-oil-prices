@@ -8,6 +8,10 @@ import sys
 import warnings
 warnings.filterwarnings('ignore')
 
+# Set matplotlib to use non-interactive backend (fixes Tkinter issues on Windows)
+import matplotlib
+matplotlib.use('Agg')  # Use Agg backend which doesn't require GUI
+
 # Import project modules
 from src.data_collection import collect_all_data
 from src.data_preprocessing import preprocess_data
@@ -119,6 +123,7 @@ def main():
     print("\n" + "="*80)
     print("STEP 7: GENERATING VISUALIZATIONS")
     print("="*80)
+    print("Note: Using non-interactive backend - plots will be saved to files only")
     
     # Oil-Inflation relationship
     plot_oil_inflation_relationship(
@@ -149,6 +154,8 @@ def main():
     arima_residuals = arima_results['residuals']
     lstm_residuals = lstm_results['actual'] - lstm_results['forecasts']
     plot_residuals(arima_residuals, lstm_residuals)
+    
+    print("\nAll visualizations saved to results/figures/ directory")
     
     # Step 8: Summary
     print("\n" + "="*80)

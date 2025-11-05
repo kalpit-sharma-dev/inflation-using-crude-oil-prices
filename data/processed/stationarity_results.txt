@@ -1,0 +1,13 @@
+STATIONARITY TEST RESULTS
+============================================================
+
+Brent_Price:
+  ADF Statistic: -2.453635
+  p-value: 0.127167
+  Is Stationary: False
+
+Inflation_Rate:
+  ADF Statistic: -3.131903
+  p-value: 0.024281
+  Is Stationary: True
+

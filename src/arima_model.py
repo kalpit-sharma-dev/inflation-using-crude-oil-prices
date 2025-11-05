@@ -12,6 +12,9 @@ import itertools
 import warnings
 import pickle
 import os
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
+import matplotlib.pyplot as plt
 import config
 
 warnings.filterwarnings('ignore')

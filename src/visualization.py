@@ -5,13 +5,20 @@ Create various plots and visualizations for the analysis
 
 import pandas as pd
 import numpy as np
+import matplotlib
+# Set non-interactive backend to avoid GUI issues
+matplotlib.use('Agg')  # Use Agg backend which doesn't require GUI
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 import config
 
 # Set style
-plt.style.use(config.PLOT_CONFIG['style'])
+try:
+    plt.style.use(config.PLOT_CONFIG['style'])
+except:
+    # Fallback if style doesn't exist
+    plt.style.use('default')
 sns.set_palette("husl")
 
 

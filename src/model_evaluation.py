@@ -5,6 +5,8 @@ Calculate evaluation metrics and compare models
 
 import pandas as pd
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
@@ -208,6 +210,22 @@ def plot_predictions(actual, arima_pred, lstm_pred, title="Model Predictions Com
     if not isinstance(lstm_pred, pd.Series):
         lstm_pred = pd.Series(lstm_pred)
     
+    # Align data by finding common index for scatter plots
+    # For time series plot, use original indices
+    # For scatter plot, align on common index
+    common_index = actual.index.intersection(arima_pred.index).intersection(lstm_pred.index)
+    
+    if len(common_index) == 0:
+        # If no common index, use the minimum length
+        min_len = min(len(actual), len(arima_pred), len(lstm_pred))
+        actual_aligned = actual.iloc[:min_len].values
+        arima_pred_aligned = arima_pred.iloc[:min_len].values
+        lstm_pred_aligned = lstm_pred.iloc[:min_len].values
+    else:
+        actual_aligned = actual.loc[common_index].values
+        arima_pred_aligned = arima_pred.loc[common_index].values
+        lstm_pred_aligned = lstm_pred.loc[common_index].values
+    
     # Plot 1: Time series comparison
     axes[0].plot(actual.index, actual.values, label='Actual', linewidth=2, color='black')
     axes[0].plot(arima_pred.index, arima_pred.values, label='ARIMA', 
@@ -220,15 +238,16 @@ def plot_predictions(actual, arima_pred, lstm_pred, title="Model Predictions Com
     axes[0].legend()
     axes[0].grid(True, alpha=0.3)
     
-    # Plot 2: Scatter plots
-    axes[1].scatter(actual.values, arima_pred.values, alpha=0.6, 
+    # Plot 2: Scatter plots (using aligned data)
+    axes[1].scatter(actual_aligned, arima_pred_aligned, alpha=0.6, 
                     label='ARIMA', s=50)
-    axes[1].scatter(actual.values, lstm_pred.values, alpha=0.6, 
+    axes[1].scatter(actual_aligned, lstm_pred_aligned, alpha=0.6, 
                     label='LSTM', s=50, marker='^')
     
     # Perfect prediction line
-    min_val = min(actual.min(), arima_pred.min(), lstm_pred.min())
-    max_val = max(actual.max(), arima_pred.max(), lstm_pred.max())
+    all_values = np.concatenate([actual_aligned, arima_pred_aligned, lstm_pred_aligned])
+    min_val = np.nanmin(all_values)
+    max_val = np.nanmax(all_values)
     axes[1].plot([min_val, max_val], [min_val, max_val], 
                  'r--', linewidth=2, label='Perfect Prediction')
     
@@ -246,6 +265,7 @@ def plot_predictions(actual, arima_pred, lstm_pred, title="Model Predictions Com
     plt.savefig(plot_file, dpi=config.PLOT_CONFIG['dpi'], bbox_inches='tight')
     print(f"Plot saved to: {plot_file}")
     
+    plt.close(fig)  # Close figure to free memory
     return fig
 
 
@@ -313,6 +333,7 @@ def plot_residuals(arima_residuals, lstm_residuals, titles=None):
     plt.savefig(plot_file, dpi=config.PLOT_CONFIG['dpi'], bbox_inches='tight')
     print(f"Residuals plot saved to: {plot_file}")
     
+    plt.close(fig)  # Close figure to free memory
     return fig
 
 
