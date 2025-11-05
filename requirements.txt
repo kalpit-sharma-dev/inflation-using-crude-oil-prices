@@ -1,0 +1,34 @@
+# Python Dependencies for Time Series Analysis Project
+# Forecasting India's Inflation Using Crude Oil Prices
+
+# Core Data Science Libraries
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+
+# Time Series Analysis
+statsmodels>=0.14.0
+arch>=6.0.0
+
+# Machine Learning / Deep Learning
+tensorflow>=2.13.0
+scikit-learn>=1.3.0
+
+# Data Download
+yfinance>=0.2.28
+fredapi>=0.5.0
+requests>=2.31.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+
+# Jupyter Notebook
+jupyter>=1.0.0
+ipykernel>=6.25.0
+notebook>=7.0.0
+

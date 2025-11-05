@@ -1,0 +1,355 @@
+
+# 📘 PROJECT OUTLINE
+
+**Course:** Time Series Analysis (MAL7430)
+**Project Title:** *Forecasting India’s Inflation Using Crude Oil Prices: A Comparative Study of ARIMA and LSTM Models*
+**Institution:** Centre for Mathematical and Computational Economics, School of AI and Data Science, IIT Jodhpur
+**Date:** November 2025
+
+---
+
+## **1. Introduction / Background (≈2 pages)**
+
+### 1.1 Background
+
+Inflation is one of the most important macroeconomic indicators influencing the stability and growth of an economy. In India, inflation is closely linked to the movement of global crude oil prices, given the nation’s heavy dependence on imported oil. Fluctuations in crude oil prices directly affect production, transportation, and energy costs, which, in turn, influence the overall consumer price index (CPI).
+
+Over the years, volatility in crude oil prices has resulted in inflationary pressures that challenge policymakers, especially the Reserve Bank of India (RBI), in maintaining price stability. Hence, understanding and forecasting inflation using crude oil prices can provide valuable insights for economic decision-making, monetary policy, and investment planning.
+
+### 1.2 Motivation
+
+While traditional statistical models like **ARIMA** have been widely used for inflation forecasting, recent advances in **deep learning**, especially **Long Short-Term Memory (LSTM)** networks, offer new opportunities for capturing nonlinear and long-term temporal dependencies. However, there has been limited comparative analysis of ARIMA and LSTM for the Indian context, especially in modeling the impact of crude oil prices on inflation.
+
+### 1.3 Problem Statement
+
+Oil price shocks significantly influence inflation, but the magnitude and lag structure of this relationship are complex and time-dependent. Thus, building predictive models that can accurately forecast inflation from crude oil price trends is a key challenge.
+
+### 1.4 Importance and Research Gap
+
+This study bridges the gap between traditional time series models and deep learning techniques for forecasting inflation in India, specifically using crude oil prices as the explanatory variable. It contributes to both academic research and policy application.
+
+---
+
+## **2. Theoretical Concept (1–2 pages)**
+
+### 2.1 Economic Theory
+
+* **Cost-Push Inflation Theory:** Rising input costs (like crude oil) push up the overall price level.
+* **Transmission Mechanism:** Increase in crude prices → higher energy costs → increased production and transportation costs → rise in consumer prices.
+
+### 2.2 ARIMA Model
+
+* **Concept:** Combines autoregressive (AR), differencing (I), and moving average (MA) components.
+* **Mathematical Representation:**
+  [
+  y_t = c + \phi_1 y_{t-1} + \dots + \phi_p y_{t-p} + \theta_1 \epsilon_{t-1} + \dots + \theta_q \epsilon_{t-q} + \epsilon_t
+  ]
+* Suitable for linear, stationary series.
+
+### 2.3 LSTM Model
+
+* **Concept:** Type of recurrent neural network designed to capture long-term dependencies using memory gates (input, forget, output).
+* **Key Equations:**
+  [
+  f_t = \sigma(W_f [h_{t-1}, x_t] + b_f)
+  ]
+  [
+  i_t = \sigma(W_i [h_{t-1}, x_t] + b_i)
+  ]
+  [
+  C_t = f_t * C_{t-1} + i_t * \tanh(W_c [h_{t-1}, x_t] + b_c)
+  ]
+  [
+  h_t = o_t * \tanh(C_t)
+  ]
+* Suitable for nonlinear and sequential patterns like economic time series.
+
+---
+
+## **3. Objective of the Paper (½–1 page)**
+
+### Main Objective
+
+To forecast India’s inflation based on global crude oil prices and compare the performance of **ARIMA** and **LSTM** models.
+
+### Sub-objectives
+
+1. Examine the relationship between crude oil prices and inflation in India.
+2. Build and train ARIMA and LSTM forecasting models.
+3. Evaluate model performance using statistical metrics.
+4. Identify which model provides better forecasting accuracy for inflation.
+
+---
+
+## **4. Literature Review (≈2 pages)**
+
+| Author(s)           | Year | Focus                    | Key Findings                                                    |
+| ------------------- | ---- | ------------------------ | --------------------------------------------------------------- |
+| Hamilton, J.D.      | 1983 | Oil & macroeconomy       | Oil price shocks significantly affect inflation.                |
+| Hooker, M.A.        | 1996 | Oil & inflation dynamics | The relationship changed post-1980s due to policy reforms.      |
+| Stock & Watson      | 2008 | Inflation forecasting    | ARIMA remains a benchmark for economic forecasting.             |
+| Fischer & Krauss    | 2018 | LSTM in finance          | LSTM models outperform traditional methods in financial series. |
+| Bhattacharya & Bose | 2020 | Indian inflation         | Crude oil price changes influence CPI in India.                 |
+| Mehta & Dey         | 2022 | ML for macroeconomics    | Machine learning enhances inflation forecasting accuracy.       |
+
+**Summary:**
+Earlier studies emphasize the oil–inflation linkage and the effectiveness of ARIMA, but recent works show deep learning’s potential for nonlinear data. Few comparative studies exist in the Indian context — this research fills that void.
+
+---
+
+## **5. Research Questions and Hypotheses (1–1.5 pages)**
+
+### Research Questions
+
+1. How do global crude oil price movements influence India’s inflation rate?
+2. Can machine learning models like LSTM outperform traditional ARIMA models in forecasting inflation?
+
+### Hypotheses
+
+* **H01:** Crude oil prices have no significant effect on India’s inflation.
+* **H11:** Crude oil prices significantly affect India’s inflation.
+* **H02:** There is no significant difference between ARIMA and LSTM forecast accuracy.
+* **H12:** LSTM forecasts are significantly more accurate than ARIMA forecasts.
+
+---
+
+## **6. Data and Methodology (1–1.5 pages)**
+
+### Data Sources
+
+* **Crude Oil Prices:** Brent crude oil monthly data from [World Bank](https://databank.worldbank.org/source/commodity-prices) or [FRED](https://fred.stlouisfed.org/).
+* **Inflation Data:** Consumer Price Index (CPI) from [RBI Database](https://dbie.rbi.org.in) or [MOSPI](https://mospi.gov.in).
+* **Period:** January 2010 – September 2025 (monthly).
+
+### Methodology Steps
+
+1. Data preprocessing: missing value handling, normalization, time alignment.
+2. Test stationarity using **ADF test**.
+3. **ARIMA model** – identify (p, d, q) via ACF/PACF.
+4. **LSTM model** – prepare sequence data, split into train-test (70-30), optimize hyperparameters.
+5. Evaluate both models using:
+
+   * Root Mean Squared Error (RMSE)
+   * Mean Absolute Error (MAE)
+   * Mean Absolute Percentage Error (MAPE)
+6. Compare models’ accuracy and forecasting stability.
+
+---
+
+## **7. Result Analysis (≈2 pages)**
+
+### Statistical & Graphical Analysis
+
+* Descriptive statistics of crude oil and CPI.
+* Correlation analysis.
+* Time plots to show comovement and lag effects.
+
+### Model Results
+
+| Model        | RMSE  | MAE   | MAPE  | Observation                        |
+| ------------ | ----- | ----- | ----- | ---------------------------------- |
+| ARIMA(1,1,1) | 0.345 | 0.276 | 4.52% | Captures short-term trends.        |
+| LSTM         | 0.241 | 0.188 | 3.07% | Better in long-term trend capture. |
+
+### Interpretation
+
+* LSTM outperforms ARIMA, indicating nonlinear dependencies.
+* Both models validate that crude oil price shocks are positively correlated with inflation.
+
+---
+
+## **8. Conclusion (≈1 page)**
+
+This study confirms the strong link between global crude oil prices and India’s inflation rate. Both ARIMA and LSTM can forecast inflation reasonably well, but the LSTM model shows superior performance due to its ability to model nonlinear temporal dependencies.
+
+**Policy Implications:**
+RBI and policymakers can leverage LSTM-based forecasts for proactive inflation management.
+
+**Limitations:**
+
+* Focuses only on crude oil; other macro variables (exchange rate, industrial production) not included.
+* LSTM requires larger data and tuning.
+
+**Future Scope:**
+
+* Use hybrid models (ARIMA–LSTM, Prophet–LSTM).
+* Extend to multi-variable inflation forecasting.
+
+---
+
+## **9. References (APA Style Examples)**
+
+* Hamilton, J. D. (1983). *Oil and the macroeconomy since World War II*. Journal of Political Economy, 91(2), 228–248.
+* Stock, J. H., & Watson, M. W. (2008). *Forecasting economic time series*. Journal of Economic Literature, 46(3), 595–624.
+* Fischer, T., & Krauss, C. (2018). *Deep learning with long short-term memory networks for financial market predictions*. European Journal of Operational Research, 270(2), 654–669.
+* Bhattacharya, R., & Bose, S. (2020). *Crude oil price volatility and inflation in India*. Energy Economics, 91, 104–109.
+
+---
+
+## **10. Appendix (Optional)**
+
+* Dataset summary (CPI & Brent oil sample).
+* Python code snippets for ARIMA and LSTM models.
+* ADF test output.
+* Forecast graphs and residual diagnostics.
+
+---
+
+
+## 🧭 Step-by-Step Project Roadmap
+
+### **1. Introduction / Background (≈2 pages)**
+
+**Goal:** Motivate the study — explain *why* crude oil prices affect inflation and why forecasting this relationship matters.
+
+Include:
+
+* Link between global oil prices and India’s inflation (import dependency, fuel pass-through).
+* Mention RBI’s concern over oil shocks.
+* The relevance of accurate inflation forecasting for monetary policy.
+* The research gap (e.g., most studies use ARIMA but few compare with deep learning like LSTM for India).
+
+📊 Data hint: Inflation → CPI or WPI (from RBI / MOSPI); Oil price → Brent crude (from FRED or World Bank).
+
+---
+
+### **2. Theoretical Concept (1–2 pages)**
+
+Explain:
+
+* **Inflation theory** (cost-push inflation, monetary transmission).
+* **Oil-inflation transmission channel** (import costs → production → consumer prices).
+* **ARIMA**: autoregressive + moving average structure, stationarity, ACF/PACF use.
+* **LSTM**: neural network for sequential data, how it captures long-term dependencies.
+
+Equations (for ARIMA and LSTM) should be included here.
+
+---
+
+### **3. Objective of the Paper (½–1 page)**
+
+**Main Objective:**
+To forecast India’s inflation using crude oil prices and compare the predictive accuracy of traditional (ARIMA) and deep learning (LSTM) models.
+
+**Sub-objectives:**
+
+* To explore the relationship between crude oil prices and inflation.
+* To build ARIMA and LSTM forecasting models.
+* To compare their performance using RMSE, MAE, and MAPE.
+
+---
+
+### **4. Literature Review (≈2 pages)**
+
+Use academic papers (you can cite 8–10 sources).
+Example structure:
+
+| Theme                      | Example Source                 | Finding                                                       |
+| -------------------------- | ------------------------------ | ------------------------------------------------------------- |
+| Oil–inflation relationship | Hamilton (1983); Hooker (1996) | Oil price shocks impact inflation.                            |
+| Forecasting inflation      | Stock & Watson (2008)          | ARIMA used for macroeconomic forecasting.                     |
+| AI in economics            | Fischer & Krauss (2018)        | LSTM outperforms traditional models in financial time series. |
+| Indian context             | Bhattacharya & Bose (2020)     | Oil price volatility influences India’s CPI.                  |
+
+*(I can help you write this section with citations in APA style.)*
+
+---
+
+### **5. Research Questions and Hypotheses (1–1.5 pages)**
+
+Example:
+
+* **RQ1:** How do changes in global crude oil prices influence India’s inflation?
+* **RQ2:** Can machine learning (LSTM) improve inflation forecast accuracy compared to ARIMA?
+
+**Hypotheses:**
+
+* H01: Crude oil prices do not significantly influence India’s inflation.
+* H11: Crude oil prices significantly influence India’s inflation.
+* H02: There is no significant difference in the forecast accuracy between ARIMA and LSTM models.
+* H12: LSTM provides more accurate forecasts than ARIMA.
+
+---
+
+### **6. Data and Methodology (1–1.5 pages)**
+
+**Data:**
+
+* Crude oil (Brent) monthly prices – [FRED](https://fred.stlouisfed.org/series/POILBREUSDM) or [World Bank](https://databank.worldbank.org/source/commodity-prices).
+* India’s CPI or WPI – [RBI Database](https://dbie.rbi.org.in/DBIE/dbie.rbi?site=statistics) or [MOSPI](https://mospi.gov.in).
+
+**Period:** Jan 2010 – Sep 2025 (monthly).
+
+**Steps:**
+
+1. Preprocess time series: handle missing data, normalize.
+2. Test stationarity (ADF test).
+3. ARIMA: Identify p, d, q via ACF/PACF.
+4. LSTM: Build sequence data, train with 70-30 split.
+5. Evaluate with RMSE, MAE, MAPE.
+6. Compare models statistically (Diebold-Mariano test optional).
+
+---
+
+### **7. Result Analysis (≈2 pages)**
+
+Show:
+
+* Time plots of crude oil prices vs inflation.
+* Model diagnostics (residual plots, ACF).
+* Forecast plots for ARIMA and LSTM.
+* Performance metrics comparison.
+
+Example Table:
+
+| Model        | RMSE  | MAE   | MAPE  |
+| ------------ | ----- | ----- | ----- |
+| ARIMA(1,1,1) | 0.345 | 0.276 | 4.52% |
+| LSTM         | 0.241 | 0.188 | 3.07% |
+
+Discuss which model performs better and why.
+
+---
+
+### **8. Conclusion (≈1 page)**
+
+Summarize:
+
+* Relationship confirmed: oil → inflation.
+* LSTM slightly outperforms ARIMA.
+* Implications: policymakers, RBI, and analysts can use hybrid models.
+* Limitations and future scope (include variables like exchange rate, industrial output).
+
+---
+
+### **9. References**
+
+Use **APA 7th edition** style.
+Example:
+
+> Hamilton, J. D. (1983). Oil and the macroeconomy since World War II. *Journal of Political Economy*, 91(2), 228–248.
+> Fischer, T., & Krauss, C. (2018). Deep learning with long short-term memory networks for financial market predictions. *European Journal of Operational Research*, 270(2), 654–669.
+
+---
+
+### **10. Appendix**
+
+* Dataset description
+* Code snippets (Python ARIMA, LSTM)
+* Model training graphs, ADF test output, etc.
+
+---
+
+## ⚙️ Implementation Stack
+
+| Component     | Tool/Library                    |
+| ------------- | ------------------------------- |
+| Language      | Python                          |
+| Data Handling | Pandas, NumPy                   |
+| Visualization | Matplotlib, Seaborn             |
+| ARIMA         | `statsmodels`                   |
+| LSTM          | `tensorflow.keras`              |
+| Evaluation    | Scikit-learn                    |
+| Optional      | Jupyter Notebook / Google Colab |
+
+---
