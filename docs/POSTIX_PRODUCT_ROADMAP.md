@@ -3,7 +3,8 @@
 **Inspired by a full feature audit of [Makoro](https://makoro.co/) — Manufacturing ERP for SME factories**  
 **Target product:** [Postix](https://postix.in/) — The AI Marketing Operating System  
 **Date:** 13 August 2026  
-**Status:** Strategy document for product, engineering, and GTM
+**Status:** Strategy / transfer analysis  
+**Working backlog (build this):** [product-roadmap.md](./product-roadmap.md)
 
 ---
 
